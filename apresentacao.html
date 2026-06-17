@@ -159,7 +159,7 @@
                     <thead>
                         <tr>
                             <th>Instância</th>
-                            <th>Viaturas / Escolas</th>
+                            <th>Veículos / Escolas</th>
                             <th>CPLEX (Score)</th>
                             <th>Tempo CPLEX</th>
                             <th>ILS-RVND (Score)</th>
@@ -172,86 +172,46 @@
                             <td>1 - Dia Normal</td>
                             <td>2 / 20</td>
                             <td><strong>64</strong></td>
-                            <td>2.65 s</td>
+                            <td>2.97 s</td>
                             <td>62</td>
-                            <td class="destaque">0.42 s</td>
+                            <td class="destaque">0.30 s</td>
                             <td>3.12%</td>
                         </tr>
                         <tr>
                             <td>2 - Caos</td>
                             <td>2 / 20</td>
                             <td><strong>66</strong></td>
-                            <td>14.86 s</td>
+                            <td>2.97 s</td>
                             <td><strong>66</strong></td>
-                            <td class="destaque">0.35 s</td>
-                            <td>0.00%</td>
+                            <td class="destaque">0.16 s</td>
+                            <td>Ótimo</td>
                         </tr>
                         <tr>
                             <td>3 - Crise de Frota</td>
                             <td>1 / 15</td>
                             <td><strong>46</strong></td>
-                            <td>12.87 s</td>
+                            <td>0.23 s</td>
                             <td><strong>46</strong></td>
-                            <td class="destaque">0.29 s</td>
-                            <td>0.00%</td>
+                            <td class="destaque">0.11 s</td>
+                            <td>Ótimo</td>
                         </tr>
                         <tr>
                             <td>4 - Escala Completa</td>
                             <td>3 / 30</td>
                             <td>87 <i>(Gap 3.5%)</i></td>
                             <td>> 17 min (Abortado)</td>
-                            <td><strong>81</strong></td>
-                            <td class="destaque">2.40 s</td>
-                            <td>6.89%</td>
+                            <td><strong>84</strong></td>
+                            <td class="destaque">2.07 s</td>
+                            <td>3.44%</td>
                         </tr>
                         <tr>
                             <td>5 - Grande (Stress)</td>
                             <td>3 / 50</td>
-                            <td>158 <i>(Gap 14.9%)</i></td>
+                            <td>158 <i>(Gap 8.12%)</i></td>
                             <td>> 20 min (Abortado)</td>
-                            <td><strong>140</strong></td>
-                            <td class="destaque">6.91 s</td>
-                            <td>11.39%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <section>
-                <h2>Rotas Baseadas em Score Máximo (ILS-RVND)</h2>
-                <p style="font-size: 0.6em;">Distribuição tática para a Instância 4 (Escala Completa) - 30 escolas, 3 viaturas.</p>
-                <table class="tabela-resultados">
-                    <thead>
-                        <tr>
-                            <th>Viatura</th>
-                            <th>Escolas Atendidas (IDs)</th>
-                            <th>Score Alcançado</th>
-                            <th>Tempo Gasto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Viatura 1</strong></td>
-                            <td>70, 78, 58, 47, 22, 25</td>
-                            <td>30</td>
-                            <td>358 min</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Viatura 2</strong></td>
-                            <td>15, 54, 56, 14, 90</td>
-                            <td>19</td>
-                            <td>346 min</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Viatura 3</strong></td>
-                            <td>82, 92, 73, 76, 95, 16, 89, 23, 21, 68</td>
-                            <td>32</td>
-                            <td>348 min</td>
-                        </tr>
-                        <tr style="background-color: #ecf0f1; font-weight: bold; color: #2c3e50;">
-                            <td colspan="2" style="text-align: right;">TOTAL:</td>
-                            <td class="destaque" style="font-size: 1.2em;">81 Pontos</td>
-                            <td>-</td>
+                            <td><strong>141</strong></td>
+                            <td class="destaque">3.92 s</td>
+                            <td>10.75%</td>
                         </tr>
                     </tbody>
                 </table>
