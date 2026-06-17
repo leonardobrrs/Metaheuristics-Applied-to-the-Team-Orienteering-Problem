@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Apresentação - ILS-RVND TOP</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/simple.min.css">
+
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            color: #2c3e50;
+        }
+        .reveal .slide-background {
+            background-color: #f8f9fa;
+        }
+
+        /* ---------------------------------------------------------
+           CORREÇÃO DO CORTE DE TEXTO:
+           Reveal.js por padrão usa overflow:hidden no .slides e
+           escala (zoom) o conteúdo para caber em 960x700px fixos.
+           Quando um slide tem muito conteúdo (listas longas,
+           tabela, fórmulas + comentários), o texto ultrapassa essa
+           altura e é cortado na parte inferior.
+           Solução: permitir overflow visível e auto-scroll dentro
+           da seção, além de reduzir levemente o espaçamento entre
+           elementos nos slides mais densos (4, 6, 7 e 8).
+        ----------------------------------------------------------*/
+        .reveal .slides section {
+            overflow-y: auto;
+            max-height: 100%;
+        }
+        .reveal .slides {
+            overflow: visible;
+        }
+
+        .tabela-resultados {
+            font-size: 0.5em;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tabela-resultados th {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 8px;
+        }
+        .tabela-resultados td {
+            border: 1px solid #bdc3c7;
+            text-align: center;
+            padding: 6px;
+        }
+        .destaque {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .reveal ul {
+            font-size: 0.8em;
+            line-height: 1.35;
+        }
+        .reveal section > ul {
+            margin-top: 10px;
+        }
+        .math-comment {
+            font-size: 0.62em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .nota-rodape {
+            font-size: 0.42em;
+            color: #7f8c8d;
+            text-align: left;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+        /* Slides com muito conteúdo recebem fonte levemente menor */
+        .slide-denso ul {
+            font-size: 0.74em;
+            line-height: 1.3;
+        }
+        .slide-denso h2 {
+            font-size: 1.4em;
+            margin-bottom: 0.3em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <section>
+                <h3>Meta-heurística ILS-RVND Aplicada ao <i>Team Orienteering Problem</i></h3>
+                <h4>Um Estudo de Caso no Suporte de TI Escolar</h4>
+                <br>
+                <p style="font-size: 0.7em;">
+                    Eduardo Serpa<br>
+                    José Herberty<br>
+                    Leonardo Barbosa
+                </p>
+                <p style="font-size: 0.6em; color: #7f8c8d;">
+                    Universidade Federal de Alagoas (UFAL)<br>
+                    Instituto de Computação (IC)
+                </p>
+            </section>
+
+            <section class="slide-denso">
+                <h2>A Dor Real (O Contexto)</h2>
+                <ul>
+                    <li>Atendimento a centenas de escolas na malha urbana de Maceió.</li>
+                    <li>As falhas de infraestrutura de TI são <strong>dinâmicas e imprevisíveis</strong> (servidores parados, rede offline, hardware defeituoso).</li>
+                    <li><strong>O Gargalo Logístico:</strong> Equipas de suporte reduzidas e limite rígido de horas no turno de trabalho (ex: 6 horas).</li>
+                </ul>
+                <br>
+                <p class="destaque" style="font-size: 0.78em;">Como decidir quais escolas atender num dia caótico para gerar o maior impacto positivo possível, sem ultrapassar o tempo limite do turno?</p>
+            </section>
+
+            <section class="slide-denso">
+                <h2>A Tradução Matemática</h2>
+                <h3 style="font-size: 1em;"><i>Team Orienteering Problem (TOP)</i></h3>
+                <ul>
+                    <li>Diferente do Caixeiro Viajante, o objetivo não é visitar todos os nós.</li>
+                    <li><strong>Objetivo:</strong> Maximizar o Lucro (Score de urgência dos chamados de TI).</li>
+                    <li><strong>Restrição Principal:</strong> O somatório do tempo de deslocamento + tempo de atendimento não pode exceder o Tmax (Duração do turno).</li>
+                    <li>Problema da classe <strong>NP-Difícil</strong> (explosão combinatória de rotas possíveis).</li>
+                </ul>
+            </section>
+
+            <section class="slide-denso">
+                <h2>Modelagem Matemática (TOP)</h2>
+
+                <p style="font-size: 0.65em; text-align: left; margin-bottom: 2px;"><strong>1. Função Objetivo:</strong></p>
+                <p style="font-size: 0.72em; margin: 4px 0;">$$\max \sum_{i \in V} \sum_{k \in K} S_i y_{ik}$$</p>
+                <div class="math-comment">
+                    <ul>
+                        <li>$S_i$: Pontuação de urgência do nó $i$.</li>
+                        <li>$y_{ik}$: Variável binária (1 se a escola $i$ é atendida pela equipe $k$, 0 caso contrário).</li>
+                        <li><strong>Significado:</strong> O algoritmo procura maximizar a soma de pontos dos chamados que conseguimos resolver.</li>
+                    </ul>
+                </div>
+
+                <p style="font-size: 0.65em; text-align: left; margin-bottom: 2px;"><strong>2. Restrição de Turno de Trabalho:</strong></p>
+                <p style="font-size: 0.72em; margin: 4px 0;">$$\sum_{i \in V} \sum_{j \in V} t_{ij} x_{ijk} + \sum_{i \in V} p_i y_{ik} \leq T_{max} \quad \forall k \in K$$</p>
+                <div class="math-comment">
+                    <ul>
+                        <li>$t_{ij}$: Tempo no trânsito. $p_i$: Tempo dentro da escola reparando o problema.</li>
+                        <li>$x_{ijk}$: Variável de rota (1 se a equipe viaja direto de $i$ para $j$).</li>
+                        <li><strong>Significado:</strong> O tempo ao volante somado ao tempo de atendimento técnico não pode estourar as horas do turno ($T_{max}$).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide-denso">
+                <h2>A Malha Geográfica</h2>
+                <ul>
+                    <li>Extração de dados do Censo Escolar 2023 de Alagoas (base oficial SEDUC-AL).</li>
+                    <li><strong>104 Escolas</strong> (Clientes) + <strong>1 Sede</strong> (Depósito).</li>
+                    <li>Cada nó associado a coordenadas geográficas reais (latitude/longitude).</li>
+                    <li>Matrizes de Tempo e Distância calculadas via distância geodésica entre pares de nós, com fator de correção de rota para aproximar a malha viária urbana.</li>
+                    <li>Assunção metodológica: Velocidade média comercial de <strong>28 km/h</strong>, compatível com o tráfego urbano de Maceió.</li>
+                    <li>Validação cruzada: amostra de rotas conferida manualmente no Google Maps para verificar a fidelidade da aproximação.</li>
+                </ul>
+            </section>
+
+            <section class="slide-denso">
+                <h2>A "Régua" de Medição (CPLEX)</h2>
+                <ul>
+                    <li>Implementação do modelo matemático exato utilizando o solver <strong>IBM ILOG CPLEX</strong>.</li>
+                    <li><strong>Como funciona:</strong> explora o espaço de soluções via <i>Branch-and-Bound</i>, dividindo o problema em subproblemas e descartando ramos que provadamente não levam a uma solução melhor.</li>
+                    <li><strong>Vantagem:</strong> quando termina, garante matematicamente que a solução encontrada é o ótimo global — funciona como referência (baseline) para avaliar qualquer outra abordagem.</li>
+                    <li><strong>Desvantagem estrutural:</strong> por se tratar de um problema <strong>NP-difícil</strong>, o espaço de soluções cresce de forma combinatória; a árvore de busca pode se tornar proibitivamente grande à medida que o número de escolas aumenta, tornando o método exato impraticável para cenários maiores ou para decisões que exigem resposta rápida.</li>
+                </ul>
+            </section>
+
+            <section class="slide-denso">
+                <h2>A Solução: ILS-RVND</h2>
+                <p style="font-size: 0.74em; text-align: left;">Uma abordagem meta-heurística para tomada de decisão rápida:</p>
+                <ul>
+                    <li><strong>Construção Gulosa:</strong> Seleciona as escolas com a melhor razão de rentabilidade <i>(Score / Tempo Gasto)</i> para criar rotas iniciais.</li>
+                    <li><strong>Busca Local (RVND):</strong> Alterna entre diferentes estruturas de vizinhança para refinar a solução:
+                        <ul>
+                            <li><i>Swap</i> (troca na ordem de visita)</li>
+                            <li><i>Add</i> (inserção de chamados ainda não atendidos)</li>
+                            <li><i>Replace</i> (substituição por chamados mais críticos)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Perturbação (ILS):</strong> Destruição controlada das rotas para escapar de ótimos locais estagnados.</li>
+                    <li><strong>Vantagem:</strong> produz soluções de boa qualidade em tempo computacional muito menor.</li>
+                    <li><strong>Desvantagem:</strong> não garante a otimalidade da solução — apenas o método exato oferece essa garantia.</li>
+                </ul>
+            </section>
+
+            <section class="slide-denso">
+                <h2>Resultados Computacionais</h2>
+                <p style="font-size: 0.55em;">CPLEX (Método Exato) vs. ILS-RVND</p>
+
+                <table class="tabela-resultados">
+                    <thead>
+                        <tr>
+                            <th>Instância</th>
+                            <th>Veículos / Escolas</th>
+                            <th>CPLEX (Score)</th>
+                            <th>Tempo CPLEX</th>
+                            <th>ILS-RVND (Score)</th>
+                            <th>Tempo ILS</th>
+                            <th>Gap Qualidade*</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 - Dia Normal</td>
+                            <td>2 / 20</td>
+                            <td><strong>64</strong></td>
+                            <td>2.97 s</td>
+                            <td>62</td>
+                            <td class="destaque">0.30 s</td>
+                            <td>3.12%</td>
+                        </tr>
+                        <tr>
+                            <td>2 - Caos</td>
+                            <td>2 / 20</td>
+                            <td><strong>66</strong></td>
+                            <td>2.97 s</td>
+                            <td><strong>66</strong></td>
+                            <td class="destaque">0.16 s</td>
+                            <td>Ótimo</td>
+                        </tr>
+                        <tr>
+                            <td>3 - Crise de Frota</td>
+                            <td>1 / 15</td>
+                            <td><strong>46</strong></td>
+                            <td>0.23 s</td>
+                            <td><strong>46</strong></td>
+                            <td class="destaque">0.11 s</td>
+                            <td>Ótimo</td>
+                        </tr>
+                        <tr>
+                            <td>4 - Escala Completa</td>
+                            <td>3 / 30</td>
+                            <td>87 (Gap 3.5%)**</td>
+                            <td>&gt; 17 min (Abortado)</td>
+                            <td><strong>84</strong></td>
+                            <td class="destaque">2.07 s</td>
+                            <td>3.44%</td>
+                        </tr>
+                        <tr>
+                            <td>5 - Grande (Stress)</td>
+                            <td>3 / 50</td>
+                            <td>158 (Gap 8.12%)**</td>
+                            <td>&gt; 20 min (Abortado)</td>
+                            <td><strong>141</strong></td>
+                            <td class="destaque">3.92 s</td>
+                            <td>10.75%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="nota-rodape">
+                    * Gap Qualidade = diferença relativa entre o score do ILS-RVND e o score do CPLEX em cada instância.<br>
+                    ** Nas instâncias 4 e 5, o CPLEX foi interrompido antes de provar otimalidade (Branch-and-Bound abortado por tempo). O valor exibido é a melhor solução inteira encontrada, com gap residual próprio de 3,5% (Inst. 4) e 8,12% (Inst. 5) em relação ao limitante dual — não é o ótimo comprovado.
+                </p>
+            </section>
+
+            <section>
+                <h2>Escala Completa (Instância 4)</h2>
+                <p style="font-size: 0.5em;">3 Veículos | 30 Escolas | Solução em 2.07 segundos</p>
+                <iframe src="mapa_Instancia_4_Escala_Completa.html" width="100%" height="500px" style="border: 2px solid #bdc3c7; border-radius: 8px;"></iframe>
+            </section>
+
+            <section>
+                <h2>Stress Test (Instância 5)</h2>
+                <p style="font-size: 0.5em;">3 Veículos | 50 Escolas | Solução em 3.92 segundos</p>
+                <iframe src="mapa_Instancia_5_Grande.html" width="100%" height="500px" style="border: 2px solid #bdc3c7; border-radius: 8px;"></iframe>
+            </section>
+
+            <section class="slide-denso">
+                <h2>Conclusão</h2>
+                <ul>
+                    <li>A meta-heurística <strong>ILS-RVND</strong> demonstrou ser altamente viável para a realidade operacional.</li>
+                    <li>O algoritmo resolveu cenários de alta complexidade em menos de <strong>4 segundos</strong>, substituindo o gargalo de computação de minutos do modelo exato.</li>
+                    <li><strong>Trabalhos Futuros:</strong>
+                        <ul>
+                            <li>Implementação de Janelas de Tempo (<i>Time Windows</i>) para as escolas.</li>
+                            <li>Consumo de APIs de trânsito em tempo real (ex: Google Maps) para atualizar a malha dinamicamente.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="slide-denso">
+                <h2>Referências Bibliográficas</h2>
+                <ul style="font-size: 0.62em; line-height: 1.5;">
+                    <li>CHAO, I. M.; GOLDEN, B. L.; WASIL, E. A. The team orienteering problem. <strong>European Journal of Operational Research</strong>, v. 88, n. 3, p. 464-474, 1996.</li>
+                    <li>VANSTEENWEGEN, P.; SOUFFRIAU, W.; VAN OUDHEUSDEN, D. The orienteering problem: A survey. <strong>European Journal of Operational Research</strong>, v. 209, n. 1, p. 1-10, 2011.</li>
+                    <li>LOURENÇO, H. R.; MARTIN, O. C.; STÜTZLE, T. Iterated local search: Framework and applications. Em: <strong>Handbook of Metaheuristics</strong>. Springer, p. 320-353, 2003.</li>
+                    <li>PENNA, P. H. V.; SUBRAMANIAN, A.; OCHI, L. S. An iterated local search heuristic for the heterogeneous fleet vehicle routing problem. <strong>European Journal of Operational Research</strong>, v. 231, n. 3, p. 584-592, 2013.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Obrigado!</h2>
+                <p>Perguntas?</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/math/math.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            transition: 'slide',
+            plugins: [ RevealMath.MathJax3 ],
+            /* Evita que o Reveal.js encolha/recorte conteúdo:
+               permite que slides mais altos que 700px tenham scroll
+               em vez de cortar texto na renderização. */
+            height: 700,
+            width: 960,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 1.5
+        });
+    </script>
+</body>
+</html>
