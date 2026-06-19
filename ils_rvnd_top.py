@@ -273,7 +273,7 @@ def iteradas_local_search(instancia, iteracoes_max=250):
 # EXECUÇÃO PRINCIPAL
 # =====================================================================
 if __name__ == "__main__":
-    arquivos_instancias = ['instancias.json', 'instancia_5.json']
+    arquivos_instancias = ['instancias.json', 'instancia_5.json', 'instancia_6.json']
     instancias = carregar_instancias(arquivos_instancias)
     
     print("--- RESULTADOS FINAIS: ILS + RVND ---\n")

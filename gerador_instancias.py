@@ -11,7 +11,7 @@ NOME_ABA = "Pontos (Escolas+Sede)"
 FICHEIRO_MATRIZ_TEMPO = "matriz_tempo_min.csv"
 FICHEIRO_MATRIZ_DISTANCIA = "matriz_distancia_km.csv"
 
-FICHEIRO_SAIDA = "instancia_5.json"
+FICHEIRO_SAIDA = "instancia_6.json"
 
 
 # ==========================================================
@@ -201,15 +201,15 @@ def main():
 
     
     # ======================================================
-    # Instância 5
+    # Instância 6
     # ======================================================
-    instancias["Instancia_5_Grande"] = gerar_instancia(
+    instancias["Instancia_6_Estadual"] = gerar_instancia(
         df_escolas,
-        nome="Instância Grande",
-        num_viaturas=3,
+        nome="Instância Estadual (Stress Épico)",
+        num_viaturas=5,
         turno_minutos=480,
-        qtd_escolas=50,
-        prob_alta=0.30
+        qtd_escolas=100,
+        prob_alta=0.20
     )
 
     # ======================================================

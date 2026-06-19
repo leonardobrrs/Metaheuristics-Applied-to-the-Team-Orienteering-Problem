@@ -1,7 +1,7 @@
 import json
 import os
 
-ARQUIVO_JSON = "instancia_5.json"
+ARQUIVO_JSON = "instancia_6.json"
 
 PASTA_SAIDA = "instancias_opl"
 
